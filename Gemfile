@@ -58,3 +58,5 @@ end
 
 gem "sassc-rails"
 gem "bootstrap"
+gem 'prawn'
+gem 'prawn-table'

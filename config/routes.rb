@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :enrollments
-  resources :courses
   root "homes#index"
+  resources :enrollments do
+    collection do
+      get :report # ou :pdf_report
+    end
+  end
+  resources :courses
 
   resources :students
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

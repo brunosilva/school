@@ -62,6 +62,20 @@ class EnrollmentsController < ApplicationController
     end
   end
 
+  def report
+    @enrollments = Enrollment.includes(:student, :course).order('students.name')
+
+    respond_to do |format|
+      format.pdf do
+        pdf = EnrollmentReport.new(@enrollments)
+        send_data pdf.render,
+                  filename: "relatorio_matriculas.pdf",
+                  type: "application/pdf",
+                  disposition: "inline"
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_enrollment
