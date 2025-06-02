@@ -1,0 +1,34 @@
+<%= form_with(model: enrollment) do |form| %>
+  <% if enrollment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
+
+      <ul>
+        <% enrollment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :student_id, style: "display: block" %>
+    <%= form.select :student_id, @students.map{|student| [student.name, student.id]}, include_blank: 'Selecione' %>
+  </div>
+
+  <%= form.collection_check_boxes :course_id, @courses, :id, :name do |b| %>
+    <div>
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :created_by, style: "display: block" %>
+    <%= form.text_field :created_by %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
